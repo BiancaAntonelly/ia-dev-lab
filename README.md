@@ -1,6 +1,6 @@
 # ia-dev-lab
 
-Laboratorio simples para praticar desenvolvimento com apoio de ferramentas de IA. O projeto usa Python para uma pequena funcionalidade de saudacao e registra contexto, comandos, convencoes e decisoes tecnicas.
+Laboratorio simples para praticar desenvolvimento com apoio de ferramentas de IA. O projeto usa Python para funcionalidades de saudacao, incluindo uma saudacao configuravel por nome, idioma e periodo do dia, alem de registrar contexto, comandos, convencoes e decisoes tecnicas.
 
 ## Estrutura
 
@@ -12,9 +12,12 @@ ia-dev-lab/
 |-- docs/
 |   |-- adr/
 |   |   `-- 0001-escolha-da-ferramenta-de-ia.md
+|   |-- escopo.md
 |   |-- mcp-tentativa.md
 |   |-- prompts-comparacao.md
-|   `-- relatorio-final.md
+|   |-- relatorio-final.md
+|   |-- revisao-diff-etapa-3.md
+|   `-- spec-sdd-saudacoes.md
 |-- src/
 |   |-- __init__.py
 |   `-- hello.py
@@ -22,6 +25,18 @@ ia-dev-lab/
     |-- AGENTS.md
     `-- test_hello.py
 ```
+
+## Funcionalidade principal
+
+O modulo `src.hello` possui uma saudacao simples e uma saudacao configuravel. A funcao `build_configurable_greeting` recebe nome, idioma e periodo do dia, usando valores padrao quando alguma entrada estiver em branco ou nao for suportada.
+
+Exemplos de comportamento:
+
+- `pt-BR` + `manha` -> `Bom dia, Bianca!`
+- `pt-BR` + `tarde` -> `Boa tarde, Bianca!`
+- `en` + `noite` -> `Good evening, Bianca!`
+- idioma desconhecido -> usa `pt-BR`
+- periodo desconhecido -> usa saudacao neutra
 
 ## Instalacao
 
