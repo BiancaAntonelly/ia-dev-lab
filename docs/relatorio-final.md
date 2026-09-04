@@ -1,36 +1,25 @@
-# Relatorio final
+# Relatorio final: De Spec a Codigo
 
-## 1. Ferramentas de IA configuradas
+## 1. Funcionalidades escolhidas
 
-Usei Codex como agente de desenvolvimento para criar arquivos, reorganizar o projeto, gerar testes e validar comandos. Para a categoria IDE + assistente, registrei VS Code + GitHub Copilot como opcao recomendada, porque e uma combinacao comum para edicao assistida no fluxo diario de desenvolvimento.
+As funcionalidades escolhidas foram um gerador de saudacoes configuravel e um validador simples de prompts. Elas foram bons casos para SDD porque possuem regras claras, entradas variadas e casos de borda, como nome em branco, idioma nao suportado, periodo invalido e prompts incompletos. Tambem exigiram alteracoes em mais de um arquivo, incluindo codigo em `src/`, testes em `tests/` e documentacao em `docs/`.
 
-## 2. Trecho mais util do AGENTS.md
+## 2. Abordagens de especificacao usadas
 
-O trecho mais util foi a secao de comandos:
+A primeira abordagem foi Markdown manual, usada em `docs/spec-sdd-saudacoes.md` para registrar user story, PRD, criterios de aceite e plano revisado. Ela funcionou bem por ser direta e simples para uma funcionalidade pequena. A segunda abordagem foi OpenSpec manual, registrada em `openspec/changes/add-prompt-validator/`, com `proposal.md`, `design.md`, `tasks.md` e `specs/`. Como o CLI `openspec` nao estava instalado, os artefatos foram criados manualmente, mas a separacao por proposta, design, tarefas e requisitos ajudou a deixar a mudanca mais rastreavel.
 
-```md
-- `python3 -m src.hello` -> roda o script principal e valida a saudacao.
-- `python3 -m unittest discover -s tests` -> roda os testes automatizados quando a pasta `tests/` existir com casos de teste.
-```
+## 3. Dificuldade enfrentada
 
-Esse trecho e importante porque permite que a IA e a pessoa desenvolvedora saibam rapidamente como executar e validar o projeto sem adivinhar comandos.
-
-## 3. Diferenca entre prompt fraco e prompt eficaz
-
-O prompt fraco, "Crie uma funcao de saudacao", deixa contexto, arquivo-alvo, restricoes e validacao em aberto. O prompt eficaz informa onde alterar, qual padrao seguir, quais restricoes respeitar e como testar. A resposta gerada por um prompt eficaz tende a ser mais alinhada com o projeto, mais facil de revisar e menos sujeita a retrabalho.
-
-## 4. Obstaculo enfrentado
-
-O principal obstaculo foi transformar um exemplo inicial muito simples em uma estrutura organizada com `src/`, `tests/`, `docs/` e ADR sem complicar demais o projeto. Resolvi mantendo o laboratorio pequeno, sem dependencias externas, e usando testes `unittest` para validar a funcionalidade.
-
-Durante a integracao com o GitHub, a publicacao por HTTPS falhou por falta de credenciais no terminal. Resolvi usando o remoto SSH, que ja estava autenticado. A abertura automatica do Pull Request pelo navegador integrado ficou bloqueada porque a sessao do GitHub nao estava logada nesse navegador; o link direto para criacao do PR foi gerado pelo GitHub apos o push da branch.
+A principal dificuldade foi equilibrar simplicidade e especificacao real em um projeto pequeno. Para resolver isso, mantive as funcionalidades pequenas, mas com regras verificaveis e testes automatizados. Tambem registrei um checkpoint humano antes do merge, revisando se a implementacao atendia a especificacao e se o diff nao quebrava comportamento existente.
 
 ## Checklist final
 
+- [x] `docs/escopo.md` com funcionalidades escolhidas e justificativa.
+- [x] Especificacao completa com requisitos, criterios de aceite e plano revisado.
+- [x] Registro das abordagens de spec usadas e justificativa.
+- [x] Tarefas implementadas com testes automatizados.
+- [x] Registro de revisao de diff.
+- [x] Registro de checkpoint humano.
+- [x] Comparacao entre abordagens de especificacao e codigo gerado.
 - [x] Repositorio no GitHub com historico de commits.
-- [x] Arquivo `AGENTS.md` e regra customizada em `tests/AGENTS.md`.
-- [x] Estrutura de pastas organizada com `README.md` e ADR em `docs/adr/`.
-- [x] Arquivo `docs/prompts-comparacao.md` com comparativo de prompts.
-- [x] Arquivo `.mcp.json` e documentacao da tentativa MCP.
 - [x] Relatorio final em Markdown.
-- [ ] Pull Request aberto no GitHub: pendente de login no navegador integrado.

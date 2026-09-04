@@ -1,6 +1,6 @@
 # ia-dev-lab
 
-Laboratorio simples para praticar desenvolvimento com apoio de ferramentas de IA. O projeto usa Python para uma pequena funcionalidade de saudacao e registra contexto, comandos, convencoes e decisoes tecnicas.
+Laboratorio simples para praticar desenvolvimento com apoio de ferramentas de IA. O projeto usa Python para funcionalidades de saudacao e validacao de prompts, alem de registrar contexto, comandos, convencoes e decisoes tecnicas.
 
 ## Estrutura
 
@@ -12,16 +12,40 @@ ia-dev-lab/
 |-- docs/
 |   |-- adr/
 |   |   `-- 0001-escolha-da-ferramenta-de-ia.md
+|   |-- comparacao-ferramentas-sdd.md
+|   |-- checkpoint-humano.md
+|   |-- escopo.md
 |   |-- mcp-tentativa.md
 |   |-- prompts-comparacao.md
-|   `-- relatorio-final.md
+|   |-- relatorio-final.md
+|   |-- revisao-diff-etapa-3.md
+|   `-- spec-sdd-saudacoes.md
+|-- openspec/
+|   `-- changes/
+|       `-- add-prompt-validator/
 |-- src/
 |   |-- __init__.py
-|   `-- hello.py
+|   |-- hello.py
+|   `-- prompt_validator.py
 `-- tests/
     |-- AGENTS.md
-    `-- test_hello.py
+    |-- test_hello.py
+    `-- test_prompt_validator.py
 ```
+
+## Funcionalidade principal
+
+O modulo `src.hello` possui uma saudacao simples e uma saudacao configuravel. A funcao `build_configurable_greeting` recebe nome, idioma e periodo do dia, usando valores padrao quando alguma entrada estiver em branco ou nao for suportada.
+
+Exemplos de comportamento:
+
+- `pt-BR` + `manha` -> `Bom dia, Bianca!`
+- `pt-BR` + `tarde` -> `Boa tarde, Bianca!`
+- `en` + `noite` -> `Good evening, Bianca!`
+- idioma desconhecido -> usa `pt-BR`
+- periodo desconhecido -> usa saudacao neutra
+
+O modulo `src.prompt_validator` possui um validador simples de prompts. A funcao `validate_prompt` identifica se um texto possui contexto, tarefa, restricoes e validacao, retornando os elementos encontrados e ausentes.
 
 ## Instalacao
 
