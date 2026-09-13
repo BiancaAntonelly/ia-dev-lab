@@ -27,4 +27,15 @@ def validate_prompt(prompt):
         "is_valid": not missing,
         "found": found,
         "missing": missing,
+        "quality": _classify_quality(found),
     }
+
+
+def _classify_quality(found):
+    if len(found) == len(REQUIRED_ELEMENTS):
+        return "strong"
+
+    if len(found) >= 2:
+        return "partial"
+
+    return "weak"
