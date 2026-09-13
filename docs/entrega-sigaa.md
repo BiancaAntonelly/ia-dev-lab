@@ -10,7 +10,7 @@ https://github.com/BiancaAntonelly/ia-dev-lab/pull/1
 
 ## Relatorio final
 
-O relatorio final esta disponivel no repositorio em:
+O relatorio final da atividade "Harness e Arquitetura na Pratica" esta disponivel no repositorio em:
 
 ```text
 docs/relatorio-final.md
@@ -26,5 +26,5 @@ Pull Request:
 https://github.com/BiancaAntonelly/ia-dev-lab/pull/1
 
 Relatorio final:
-O relatorio esta no repositorio em docs/relatorio-final.md
+O relatorio final da atividade Harness e Arquitetura na Pratica esta no repositorio em docs/relatorio-final.md
 ```

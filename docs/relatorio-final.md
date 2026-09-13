@@ -1,25 +1,25 @@
-# Relatorio final: De Spec a Codigo
+# Relatorio final: Harness e Arquitetura na Pratica
 
-## 1. Funcionalidades escolhidas
+## 1. Autonomia e guardrail
 
-As funcionalidades escolhidas foram um gerador de saudacoes configuravel e um validador simples de prompts. Elas foram bons casos para SDD porque possuem regras claras, entradas variadas e casos de borda, como nome em branco, idioma nao suportado, periodo invalido e prompts incompletos. Tambem exigiram alteracoes em mais de um arquivo, incluindo codigo em `src/`, testes em `tests/` e documentacao em `docs/`.
+Comparei um modo guiado com revisao e um modo mais automatico para uma tarefa pequena. O modo automatico foi mais rapido, mas o modo guiado deu mais controle e reduziu risco de aceitar arquivo errado. O guardrail configurado foi um hook de pre-commit em `scripts/hooks/pre-commit`, bloqueando arquivos `__pycache__` e `*.pyc`; o bloqueio foi testado e registrado em `docs/harness-hook-log.md`.
 
-## 2. Abordagens de especificacao usadas
+## 2. TDD e enforcement
 
-A primeira abordagem foi Markdown manual, usada em `docs/spec-sdd-saudacoes.md` para registrar user story, PRD, criterios de aceite e plano revisado. Ela funcionou bem por ser direta e simples para uma funcionalidade pequena. A segunda abordagem foi OpenSpec manual, registrada em `openspec/changes/add-prompt-validator/`, com `proposal.md`, `design.md`, `tasks.md` e `specs/`. Como o CLI `openspec` nao estava instalado, os artefatos foram criados manualmente, mas a separacao por proposta, design, tarefas e requisitos ajudou a deixar a mudanca mais rastreavel.
+Usei Red-Green-Refactor para adicionar a classificacao de qualidade no validador de prompts. O historico mostra o teste falhando antes da implementacao, depois a implementacao minima e, por fim, o refactor para constantes. Investiguei TDD Guard pela documentacao oficial e registrei que ele bloquearia implementacoes sem teste previo, mas nao foi instalado porque depende da configuracao especifica do agente. A comparacao com uma tarefa sem TDD mostrou menor rastreabilidade e gerou uma funcao sem teste dedicado.
 
-## 3. Dificuldade enfrentada
+## 3. Checkpoint humano
 
-A principal dificuldade foi equilibrar simplicidade e especificacao real em um projeto pequeno. Para resolver isso, mantive as funcionalidades pequenas, mas com regras verificaveis e testes automatizados. Tambem registrei um checkpoint humano antes do merge, revisando se a implementacao atendia a especificacao e se o diff nao quebrava comportamento existente.
+O checkpoint definido foi antes de aceitar mudancas no contrato publico de `validate_prompt`. O papel humano foi o de revisora de contrato de modulo. A decisao foi aprovar com edicao: aceitar o campo `quality`, mas refatorar seus valores para constantes nomeadas.
 
-## Checklist final
+## 4. Arquitetura, ADR e diagrama
 
-- [x] `docs/escopo.md` com funcionalidades escolhidas e justificativa.
-- [x] Especificacao completa com requisitos, criterios de aceite e plano revisado.
-- [x] Registro das abordagens de spec usadas e justificativa.
-- [x] Tarefas implementadas com testes automatizados.
-- [x] Registro de revisao de diff.
-- [x] Registro de checkpoint humano.
-- [x] Comparacao entre abordagens de especificacao e codigo gerado.
-- [x] Repositorio no GitHub com historico de commits.
-- [x] Relatorio final em Markdown.
+A revisao arquitetural concluiu que o projeto esta no tamanho certo para modulos Python simples, sem extrair servico ou framework. A decisao foi registrada no ADR `docs/adr/0002-manter-modulos-python-simples.md`. O diagrama em `docs/arquitetura-diagrama.md` compara uma versao geral e uma versao mais detalhada; a segunda comunica melhor os contratos e responsabilidades.
+
+## 5. Divida tecnica
+
+Escolhi investigar divida tecnica. Como `ruff`, `pylint` e `flake8` nao estavam instalados, criei `scripts/static_analysis.py`, que identifica funcoes publicas sem teste dedicado. A ferramenta apontou `summarize_prompt_validation`, justamente a funcao criada sem TDD. O principal aprendizado foi que o processo sem TDD aumenta chance de deixar comportamento publico sem teste.
+
+## 6. Dificuldade real
+
+A maior dificuldade foi adaptar uma atividade pensada para ferramentas/harness completos a um projeto pequeno e local. Resolvi usando controles equivalentes e verificaveis: hook versionado, commits Red-Green-Refactor, log da sessao, ADR, diagrama e analise estatica simples.
