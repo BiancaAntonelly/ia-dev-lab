@@ -41,6 +41,27 @@ class PromptValidatorTest(unittest.TestCase):
             result["missing"],
         )
 
+    def test_classifies_complete_prompt_as_strong(self):
+        prompt = (
+            "No contexto do projeto ia-dev-lab, implemente a tarefa de validar prompts. "
+            "Restricoes: nao adicione dependencias. "
+            "Validacao: rode os testes."
+        )
+
+        result = validate_prompt(prompt)
+
+        self.assertEqual("strong", result["quality"])
+
+    def test_classifies_partial_prompt_as_partial(self):
+        result = validate_prompt("No contexto do projeto, crie uma funcao.")
+
+        self.assertEqual("partial", result["quality"])
+
+    def test_classifies_generic_prompt_as_weak(self):
+        result = validate_prompt("crie uma funcao")
+
+        self.assertEqual("weak", result["quality"])
+
 
 if __name__ == "__main__":
     unittest.main()

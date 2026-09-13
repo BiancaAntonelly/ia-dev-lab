@@ -1,0 +1,12 @@
+#!/bin/sh
+
+blocked_files=$(git diff --cached --name-only | grep -E '(^|/)(__pycache__|.*\.pyc$|.*\.pyo$)' || true)
+
+if [ -n "$blocked_files" ]; then
+  echo "Commit bloqueado: arquivos de cache Python nao devem ser versionados."
+  echo "$blocked_files"
+  echo "Remova esses arquivos do stage antes de commitar."
+  exit 1
+fi
+
+exit 0
