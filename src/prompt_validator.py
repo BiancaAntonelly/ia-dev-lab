@@ -5,6 +5,10 @@ REQUIRED_ELEMENTS = {
     "validacao": ("validacao", "valide", "teste", "criterio de aceite"),
 }
 
+QUALITY_STRONG = "strong"
+QUALITY_PARTIAL = "partial"
+QUALITY_WEAK = "weak"
+
 
 def _normalize_prompt(prompt):
     if not isinstance(prompt, str):
@@ -33,9 +37,9 @@ def validate_prompt(prompt):
 
 def _classify_quality(found):
     if len(found) == len(REQUIRED_ELEMENTS):
-        return "strong"
+        return QUALITY_STRONG
 
     if len(found) >= 2:
-        return "partial"
+        return QUALITY_PARTIAL
 
-    return "weak"
+    return QUALITY_WEAK
