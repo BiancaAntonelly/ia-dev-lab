@@ -43,3 +43,11 @@ def _classify_quality(found):
         return QUALITY_PARTIAL
 
     return QUALITY_WEAK
+
+
+def summarize_prompt_validation(prompt):
+    result = validate_prompt(prompt)
+    found_count = len(result["found"])
+    total_count = len(REQUIRED_ELEMENTS)
+
+    return f"{found_count}/{total_count} elementos encontrados; qualidade: {result['quality']}"
